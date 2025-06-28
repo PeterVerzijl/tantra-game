@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+}
+
+#game {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    margin: auto;
+
+    background-color: whitesmoke;
+}
+
+.fullscreen {
+    height: 100%;
+    width: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.fullscreen * {
+    pointer-events: auto;
+}
+
+.center-children {
+    position: absolute;
+    left: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.horizontal-layout {
+    position: absolute;
+    display: flex;
+    padding: 10%;
+    gap: 5%; /* horizontal space between boxes */
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+#spinner {
+    width: 20%;
+}
+
+.card {
+    flex: 1 1 0;
+    aspect-ratio: 3 / 4; /* or 1 / 1 for square */
+    background-color: #4a90e2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    transform: 0px;
+}
+
+.disabled {
+    transform: translateY(400%);
+    pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-20px);
+}
+
+* {
+    box-sizing: border-box;
+}
