@@ -10,45 +10,51 @@
 <body>
     <div id="game">
         <div class="fullscreen center-children">
+            <img id="plate" src="/img/Tree_Of_Life 2.png" alt="plate">
             <img id="spinner" src="/img/spinner.png" alt="spinner" onclick="spin(this)">
         </div>
-        <div class="fullscreen horizontal-layout">
-            <div id="card-1" class="card disabled" onclick="selectCard(this)">1</div>
-            <div id="card-2" class="card disabled" onclick="selectCard(this)">2</div>
-            <div id="card-3" class="card disabled" onclick="selectCard(this)">3</div>
+        <div id="card-container" class="fullscreen horizontal-layout">
+            <div id="card-1" class="card disabled"><img src="" alt=""></div>
+            <div id="card-2" class="card disabled"><img src="" alt=""></div>
+            <div id="card-3" class="card disabled"><img src="" alt=""></div>
+            <div id="card-3" class="card disabled"><img src="" alt=""></div>
+            <div id="card-3" class="card disabled"><img src="" alt=""></div>
         </div>
         <div class="fullscreen">
-            <button onclick="restart()">Replay</button>
+            <!-- <button onclick="restart()">Replay</button> -->
         </div>
     </div>
 
     <script>
         const { animate, utils } = anime;
-        let rotations = 0;
-        function spin(element) {
-            rotations += (1 + 2 * Math.random());
-            $spinner = utils.$('#spinner');
-            animate($spinner, {
-                rotate: rotations * 360,
-                ease: 'out(4)',
-                duration: 1500,
-                
-            }).then(() => {
-                utils.$('.card').forEach(e => e.classList.remove('disabled'));
-            });
-        }
+        let rotation = 0;
+        let hasSpun = false;
+        let spinAnimationDuration = 10 * 1000;
+        // let spinAnimationDuration = 1000;
 
-        function selectCard(card) {
-            utils.$('.card').forEach(e => {
-                if (e !== card) {
-                    e.classList.add('disabled');
-                }
-            });
-            const parent = card.parentNode;
-            if (card == parent.children[0]) {
-                parent.insertBefore(card, parent.children[2]);
-            } else if (card == parent.children[2]) {
-                parent.insertBefore(card, parent.children[1]);
+        function spin(element) {
+            if (!hasSpun) {
+                hasSpun = true;
+
+                const monthMoonIndex = Math.floor((Math.random() * 32));
+                utils.$('.card').forEach((e, i) => {
+                    const imageIndex = 3 + i * 34 + monthMoonIndex;
+                    e.querySelector('img').src = `/img/GeoMystics SYMBOLICS-${String(imageIndex).padStart('3', '0')}.png`;
+                });
+
+                const anglePerIndex = 360 / 32.0;
+                const additionalRotations = Math.round(2 + Math.random() * 5) * 360;
+                rotation = additionalRotations + monthMoonIndex * anglePerIndex;
+                $spinner = utils.$('#spinner');
+                animate($spinner, {
+                    rotate: rotation,
+                    ease: 'out(4)',
+                    duration: spinAnimationDuration,
+                }).then(() => {
+                    utils.$('.card').forEach((e, i) => {
+                        e.classList.remove('disabled');
+                    });
+                });
             }
         }
 

@@ -4,11 +4,15 @@ body {
 
 #game {
     position: absolute;
-    width: 400px;
-    height: 300px;
+    width: 100vw;
+    height: 100vh;
+    /* width: 500px; */
+    /* height: 700px; */
     margin: auto;
 
-    background-color: whitesmoke;
+    background: url("/img/Booklet_Cover_A4.png");
+    background-size: cover;
+    background-position: center;
 }
 
 .fullscreen {
@@ -36,37 +40,57 @@ body {
 .horizontal-layout {
     position: absolute;
     display: flex;
-    padding: 10%;
-    gap: 5%; /* horizontal space between boxes */
+    padding: 2%;
+    gap: 2%; /* horizontal space between boxes */
     justify-content: center;
     align-items: center;
     max-width: 100%;
 }
 
+#plate {
+    position: absolute;
+    width: 50%;
+    aspect-ratio: 1;
+}
+
 #spinner {
-    width: 20%;
+    position: absolute;
+    width: 15%;
 }
 
 .card {
     flex: 1 1 0;
-    aspect-ratio: 3 / 4; /* or 1 / 1 for square */
+    aspect-ratio: 1/1.414;
     background-color: #4a90e2;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    transition: transform 0.3s;
-    transform: 0px;
+    border-radius: 4px;
+    transition: transform 1s, scale 1s, rotate 1s;
+    transform: 0px rotateX(90deg);
 }
 
 .disabled {
-    transform: translateY(400%);
+    transform: translateY(400%) rotateX(-90deg);
     pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-20px);
+    scale: 250%;
+    z-index: 1000;
+}
+
+#card-container .card:first-child:hover {
+    transform: translateX(30%);
+}
+
+#card-container .card:last-child:hover {
+    transform: translateX(-30%);
+}
+
+.card img {
+    width: 100%;
 }
 
 * {
