@@ -10,7 +10,7 @@ body {
     /* height: 700px; */
     margin: auto;
 
-    background: url("/img/Booklet_Cover_A4.png");
+    background: url("/img/IMG_7189.PNG");
     background-size: cover;
     background-position: center;
 }
@@ -69,6 +69,49 @@ body {
     border-radius: 4px;
     transition: transform 1s, scale 1s, rotate 1s;
     transform: 0px rotateX(90deg);
+}
+
+.bob {
+    transform: translateY(-7px) translateX(0) rotate(0);
+    transform-origin: 50% 50%;
+    animation: bobAndRotate 5s infinite linear;
+}
+.bob:nth-child(1) {
+    animation-delay: -4s;
+}
+.bob:nth-child(2) {
+    animation-delay: -2s;
+}
+.bob:nth-child(3) {
+    animation-delay: -6s;
+}
+.bob:nth-child(4) {
+    animation-delay: -4s;
+}
+.bob:nth-child(5) {
+    animation-delay: -9s;
+}
+
+.card img {
+    filter: blur(1.5rem);
+}
+
+@keyframes bobAndRotate {
+  0% {
+    transform: translateY(-7px) translateX(0) rotate(0);
+  }
+  25% {
+    transform: translateY(0) translateX(7px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(7px) translateX(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(0) translateX(-7px) rotate(-3deg);
+  }
+  100% {
+    transform: translateY(-7px) translateX(0) rotate(0);
+  }
 }
 
 .disabled {

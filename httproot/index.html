@@ -29,8 +29,8 @@
         const { animate, utils } = anime;
         let rotation = 0;
         let hasSpun = false;
-        let spinAnimationDuration = 10 * 1000;
-        // let spinAnimationDuration = 1000;
+        // let spinAnimationDuration = 10 * 1000;
+        let spinAnimationDuration = 1000;
 
         function spin(element) {
             if (!hasSpun) {
@@ -38,8 +38,8 @@
 
                 const monthMoonIndex = Math.floor((Math.random() * 32));
                 utils.$('.card').forEach((e, i) => {
-                    const imageIndex = 3 + i * 34 + monthMoonIndex;
-                    e.querySelector('img').src = `/img/GeoMystics SYMBOLICS-${String(imageIndex).padStart('3', '0')}.png`;
+                    const imageIndex = i * 32 + monthMoonIndex;
+                    e.querySelector('img').src = `/img/card-0.5x-${String(imageIndex)}.jpg`;
                 });
 
                 const anglePerIndex = 360 / 32.0;
@@ -53,6 +53,9 @@
                 }).then(() => {
                     utils.$('.card').forEach((e, i) => {
                         e.classList.remove('disabled');
+                        setTimeout(() => {
+                            e.classList.add('bob');
+                        }, 1 * 1000)
                     });
                 });
             }
