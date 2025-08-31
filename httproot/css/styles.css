@@ -93,7 +93,7 @@ body {
 }
 
 .card img {
-    filter: blur(1.5rem);
+    /*filter: blur(1.5rem);*/
 }
 
 @keyframes bobAndRotate {
@@ -120,7 +120,8 @@ body {
 }
 
 .card:hover {
-    scale: 250%;
+    /*scale: 250%;*/
+    scale: 150%;
     z-index: 1000;
 }
 
