@@ -118,6 +118,9 @@
                         e.classList.remove('disabled');
                         setTimeout(() => {
                             e.classList.add('bob');
+                            if (i == randomIndex) {
+                                e.classList.add('selected');
+                            }
                         }, 1 * 1000)
                     });
                 });

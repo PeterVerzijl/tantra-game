@@ -116,17 +116,6 @@ body {
     pointer-events: none;
 }
 
-.card:hover {
-    scale: 150%;
-    z-index: 1000;
-    animation: none;
-    transform: rotateX(180deg);
-}
-
-.card img {
-    width: 100%;
-}
-
 .card {
     flex: 1 1 0;
     aspect-ratio: 1/1.414;
@@ -140,6 +129,22 @@ body {
     transform: 0px rotateX(90deg);
     transform-style: preserve-3d; /* Enables 3D transform for children */
 }
+
+.card:hover {
+    scale: 150%;
+    z-index: 1000;
+    animation: none;
+    transform: rotateX(180deg);
+}
+
+.card.selected {
+    transform: rotateX(180deg);
+}
+
+.card img {
+    width: 100%;
+}
+
 .card-front, .card-back {
     position: absolute;
     width: 100%;
@@ -148,6 +153,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 .card-front img {
     width: 70%;
