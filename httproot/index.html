@@ -15,43 +15,65 @@
         </div>
         <div id="card-container" class="fullscreen horizontal-layout">
             <div id="card-1" class="card disabled">
-                <img src="" alt="">
-                <div class="more-info disabled">
-                    <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
-                    <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
                 </div>
             </div>
             <div id="card-2" class="card disabled">
-                <img src="" alt="">
-                <div class="more-info disabled">
-                    <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
-                    <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
                 </div>
             </div>
             <div id="card-3" class="card disabled">
-                <img src="" alt="">
-                <div class="more-info disabled">
-                    <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
-                    <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
                 </div>
             </div>
             <div id="card-3" class="card disabled">
-                <img src="" alt="">
-                <div class="more-info disabled">
-                    <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
-                    <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
                 </div>
             </div>
             <div id="card-3" class="card disabled">
-                <img src="" alt="">
-                <div class="more-info disabled">
-                    <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
-                    <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="fullscreen">
-            <!-- <button onclick="restart()">Replay</button> -->
         </div>
     </div>
 
@@ -74,11 +96,12 @@
                 utils.$('.card').forEach((e, i) => {
                     if (i == randomIndex) {
                         const imageIndex = i * 32 + monthMoonIndex;
-                        e.querySelector('img').src = `/img/card-0.25x-${String(imageIndex)}.jpg`;
+                        e.querySelector('.card-back img').src = `/img/card-0.25x-${String(imageIndex)}.jpg`;
                     } else {
-                        e.querySelector('img').src = `/img/card-blurred-0.jpg`;
+                        e.querySelector('.card-back img').src = `/img/card-blurred-0.jpg`;
                         e.querySelector('.more-info').classList.remove('disabled');
                     }
+                    e.querySelector('.card-front img').src = `/img/stap-${i + 1}.png`;
                     e.style.transformOrigin = `${mapIndexTo01(i) * 100}% center`;
                 });
 
