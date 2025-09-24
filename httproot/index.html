@@ -92,6 +92,8 @@
                 
                 const randomIndex = Math.floor((Math.random() * 5));
                 
+                document.getElementById('spinner').classList.add('no-animation')
+
                 const monthMoonIndex = Math.floor((Math.random() * 32));
                 utils.$('.card').forEach((e, i) => {
                     if (i == randomIndex) {
