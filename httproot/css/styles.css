@@ -61,7 +61,7 @@ body {
 .card {
     flex: 1 1 0;
     aspect-ratio: 1/1.414;
-    background-color: #4a90e2;
+    background-color: #FFFFFF;
     color: white;
     display: flex;
     align-items: center;
@@ -120,17 +120,9 @@ body {
 }
 
 .card:hover {
-    /*scale: 250%;*/
     scale: 150%;
     z-index: 1000;
-}
-
-#card-container .card:first-child:hover {
-    transform: translateX(30%);
-}
-
-#card-container .card:last-child:hover {
-    transform: translateX(-30%);
+    animation: none;
 }
 
 .card img {

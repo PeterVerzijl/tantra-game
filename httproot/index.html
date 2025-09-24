@@ -36,6 +36,8 @@
             if (!hasSpun) {
                 hasSpun = true;
 
+                const sheet = document.styleSheets[0];
+                
                 const randomIndex = Math.floor((Math.random() * 5));
                 
                 const monthMoonIndex = Math.floor((Math.random() * 32));
@@ -46,6 +48,7 @@
                     } else {
                         e.querySelector('img').src = `/img/card-blurred-0.jpg`;
                     }
+                    e.style.transformOrigin = `${mapIndexTo01(i) * 100}% center`;
                 });
 
                 const anglePerIndex = 360 / 32.0;
@@ -64,11 +67,39 @@
                         }, 1 * 1000)
                     });
                 });
+                
+                window.addEventListener('resize', OnResize);
+    
+                function OnResize() {
+                    const sheet = document.styleSheets[0];
+                    const e = utils.$('.card')[0];
+                    
+                    const element_width = e.offsetWidth;  // before transform
+                    const element_height = e.offsetHeight; // before transform
+                    const vw = window.innerWidth;   // viewport width in px
+                    const vh = window.innerHeight;  // viewport height in px
+                    const hfraction = vh / element_height;
+                    const vfraction = vw / element_width;
+                    const minScale = Math.min(hfraction, vfraction) * 0.9;
+
+                    // Loop through rules to find the one you want
+                    for (let i = 0; i < sheet.cssRules.length; i++) {
+                        const rule = sheet.cssRules[i];
+                        if (rule.selectorText === '.card:hover') {
+                            rule.style.scale = `${Math.floor(minScale * 100)}%`;
+                        }
+                    }
+                }
+                OnResize();
             }
         }
 
         function restart() {
             location.reload();
+        }
+
+        function mapIndexTo01(i, n = 5) {
+            return i / (n - 1);
         }
     </script>
 </body>
