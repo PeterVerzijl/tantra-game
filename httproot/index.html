@@ -26,20 +26,34 @@
     </div>
 
     <script>
-        const { animate, utils } = anime;
+        const { animate, utils, stagger } = anime;
         let rotation = 0;
         let hasSpun = false;
         // let spinAnimationDuration = 10 * 1000;
         let spinAnimationDuration = 1000;
+
+        const audioClips = [
+            new Audio('/audio/card-slide-6.ogg'),
+            new Audio('/audio/card-slide-6.ogg'),
+            new Audio('/audio/card-slide-6.ogg'),
+            new Audio('/audio/card-slide-6.ogg'),
+            new Audio('/audio/card-slide-6.ogg'),
+        ]
 
         function spin(element) {
             if (!hasSpun) {
                 hasSpun = true;
 
                 const monthMoonIndex = Math.floor((Math.random() * 32));
+                const cardIndex = Math.floor((Math.random() * 5))
                 utils.$('.card').forEach((e, i) => {
                     const imageIndex = i * 32 + monthMoonIndex;
-                    e.querySelector('img').src = `/img/card-0.5x-${String(imageIndex)}.jpg`;
+                    const img = e.querySelector('img')
+                    if (i == cardIndex) {
+                        img.src = `/img/card-0.25x-${String(imageIndex)}.jpg`;
+                    } else {
+                        img.src = `/img/card-blur.jpg`;
+                    }
                 });
 
                 const anglePerIndex = 360 / 32.0;
@@ -52,11 +66,46 @@
                     duration: spinAnimationDuration,
                 }).then(() => {
                     utils.$('.card').forEach((e, i) => {
-                        e.classList.remove('disabled');
-                        setTimeout(() => {
-                            e.classList.add('bob');
-                        }, 1 * 1000)
-                    });
+                        const fadeInDuration = 600;
+                        e.classList.remove('disabled')
+                        animate(e, {
+                            translateX: [`${-50 * i + 50}%`, '0%'],
+                            translateY: ['400%' ,'0%'],
+                            rotateX: ['-90deg', '0deg'],
+                            easing: 'easeOutExpo',
+                            duration: fadeInDuration,
+                            delay: i * (fadeInDuration * 0.4),
+                            composition: 'blend',
+                            onBegin: () => { 
+                                audioClips[i].volume = 0.2;
+                                audioClips[i].play() 
+                            },
+                            onComplete: () => {
+                                const rotationAmplitude = 2
+                                animate(e, {
+                                    rotate: [
+                                        `-${rotationAmplitude}deg`, 
+                                        `${rotationAmplitude}deg`],
+                                    duration: 5 * 1000,
+                                    delay: -utils.random(0, 5 * 1000),
+                                    loop: true,
+                                    alternate: true,
+                                    composition: 'blend',
+                                    ease: 'inOutSine',
+                                })
+                                animate(e, {
+                                    translateX: [`-5px`,'5px'],
+                                    translateY: ['-5px','5px'],
+                                    duration: 5 * 1000,
+                                    delay: -utils.random(0, 5 * 1000),
+                                    loop: true,
+                                    alternate: true,
+                                    ease: 'inOutSine',
+                                    composition: 'blend',
+                                })
+                            },
+                        })
+                    })
                 });
             }
         }
