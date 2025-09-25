@@ -14,14 +14,66 @@
             <img id="spinner" src="/img/spinner.png" alt="spinner" onclick="spin(this)">
         </div>
         <div id="card-container" class="fullscreen horizontal-layout">
-            <div id="card-1" class="card disabled"><img src="" alt=""></div>
-            <div id="card-2" class="card disabled"><img src="" alt=""></div>
-            <div id="card-3" class="card disabled"><img src="" alt=""></div>
-            <div id="card-3" class="card disabled"><img src="" alt=""></div>
-            <div id="card-3" class="card disabled"><img src="" alt=""></div>
-        </div>
-        <div class="fullscreen">
-            <!-- <button onclick="restart()">Replay</button> -->
+            <div id="card-1" class="card disabled">
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div id="card-2" class="card disabled">
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div id="card-3" class="card disabled">
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div id="card-3" class="card disabled">
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div id="card-3" class="card disabled">
+                <div class="card-front">
+                    <img src="" alt="">
+                </div>
+                <div class="card-back">
+                    <img src="" alt="">
+                    <div class="more-info disabled">
+                        <p>Learn more about GeoMystics?<br>Or discover the rest of your path?</p>
+                        <a class="button" href="https://geo-mystics.com/" target="_blank">Explore</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -44,16 +96,24 @@
             if (!hasSpun) {
                 hasSpun = true;
 
+                const sheet = document.styleSheets[0];
+                
+                const randomIndex = Math.floor((Math.random() * 5));
+                
+                document.getElementById('spinner').classList.add('no-animation')
+
                 const monthMoonIndex = Math.floor((Math.random() * 32));
                 const cardIndex = Math.floor((Math.random() * 5))
                 utils.$('.card').forEach((e, i) => {
-                    const imageIndex = i * 32 + monthMoonIndex;
-                    const img = e.querySelector('img')
-                    if (i == cardIndex) {
-                        img.src = `/img/card-0.25x-${String(imageIndex)}.jpg`;
+                    if (i == randomIndex) {
+                        const imageIndex = i * 32 + monthMoonIndex;
+                        e.querySelector('.card-back img').src = `/img/card-0.25x-${String(imageIndex)}.jpg`;
                     } else {
-                        img.src = `/img/card-blur.jpg`;
+                        e.querySelector('.card-back img').src = `/img/card-blurred-0.jpg`;
+                        e.querySelector('.more-info').classList.remove('disabled');
                     }
+                    e.querySelector('.card-front img').src = `/img/stap-${i + 1}.png`;
+                    e.style.transformOrigin = `${mapIndexTo01(i) * 100}% center`;
                 });
 
                 const anglePerIndex = 360 / 32.0;
@@ -103,15 +163,67 @@
                                     ease: 'inOutSine',
                                     composition: 'blend',
                                 })
+                                
+                                if (i == randomIndex) {
+                                    animate(e, {
+                                        rotateX: 180,
+                                        duration: 800,
+                                        easing: 'easeInOutQuad'
+                                    });
+                                } else {
+                                    e.addEventListener('mouseenter', () => {
+                                        animate(e, {
+                                            rotateX: 180,
+                                            duration: 800,
+                                            easing: 'easeInOutQuad'
+                                        });
+                                    });
+    
+                                    e.addEventListener('mouseleave', () => {
+                                        animate(e, {
+                                            rotateX: 0,
+                                            duration: 800,
+                                            easing: 'easeInOutQuad'
+                                        });
+                                    });
+                                }
                             },
                         })
                     })
                 });
+                
+                window.addEventListener('resize', OnResize);
+    
+                function OnResize() {
+                    const sheet = document.styleSheets[0];
+                    const e = utils.$('.card')[0];
+                    
+                    const element_width = e.offsetWidth;  // before transform
+                    const element_height = e.offsetHeight; // before transform
+                    const vw = window.innerWidth;   // viewport width in px
+                    const vh = window.innerHeight;  // viewport height in px
+                    const hfraction = vh / element_height;
+                    const vfraction = vw / element_width;
+                    const minScale = Math.min(hfraction, vfraction) * 0.9;
+
+                    // Loop through rules to find the one you want
+                    for (let i = 0; i < sheet.cssRules.length; i++) {
+                        const rule = sheet.cssRules[i];
+                        if (rule.selectorText === '.card:hover') {
+                            rule.style.scale = `${Math.floor(minScale * 100)}%`;
+                        }
+                    }
+                }
+                OnResize();
             }
         }
 
         function restart() {
             location.reload();
+        }
+
+        function mapIndexTo01(i, n = 5) {
+            return i / (n - 1);
         }
     </script>
 </body>
