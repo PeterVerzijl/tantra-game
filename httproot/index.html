@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preload" as="fetch" href="/audio/card-slide-6.ogg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
@@ -10,8 +11,8 @@
 <body>
     <div id="game">
         <div class="fullscreen center-children">
-            <img id="plate" src="/img/Tree_Of_Life 2.png" alt="plate">
-            <img id="spinner" src="/img/spinner.png" alt="spinner" onclick="spin(this)">
+            <div id="plate"></div>
+            <div id="spinner" onclick="spin(this)">
         </div>
         <div id="card-container" class="fullscreen horizontal-layout">
             <div id="card-1" class="card disabled">
@@ -168,6 +169,7 @@
                                     animate(e, {
                                         rotateX: 180,
                                         duration: 800,
+                                        delay: 500,
                                         easing: 'easeInOutQuad'
                                     });
                                 } else {

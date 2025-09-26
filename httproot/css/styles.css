@@ -24,6 +24,10 @@ body {
     background: url("/img/IMG_7189.PNG");
     background-size: cover;
     background-position: center;
+
+    @supports (background-image: url("/img/IMG_7189.webp")) {
+        background-image: url("/img/IMG_7189.webp");
+    }
 }
 
 .fullscreen {
@@ -62,6 +66,14 @@ body {
     position: absolute;
     width: 50%;
     aspect-ratio: 1;
+
+    background-image: url("/img/Tree_Of_Life 2.png");
+    background-size: cover;
+    background-position: center;
+
+    @supports (background-image: url("/img/Tree_Of_Life 2.webp")) {
+        background-image: url("/img/Tree_Of_Life 2.webp");
+    }
 }
 
 #spinner {
@@ -70,6 +82,16 @@ body {
     cursor: pointer;
 
     border-radius: 50%;
+
+    background-image: url("/img/spinner.png");
+    background-size: cover;
+    background-position: center;
+
+    aspect-ratio: 1;
+
+    @supports (background-image: url("/img/spinner.webp")) {
+        background-image: url("/img/spinner.webp");
+    }
 
     animation: animateShadow 3s infinite linear;
 }
